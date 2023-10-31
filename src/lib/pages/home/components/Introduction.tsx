@@ -1,10 +1,9 @@
-import { Button } from '@/components/ui/button';
 import { Signup } from './Signup';
-
+import { Login } from './Login';
 const Introduction = () => {
   return (
     <div className="items-center flex flex-col">
-      <p className="uppercase text-3xl text-left w-3/5 ">
+      <p className="uppercase text-xl  md:text-3xl text-left w-3/5 font-nhgdp">
         Introducing <strong>Direct'r</strong>, a path to creating your own
         spotlight in the film industry. A platform driven by storytelling,
         filmmakers, and professionals in the film industry, we provide a place
@@ -14,12 +13,9 @@ const Introduction = () => {
         place to express who you are, Direct’r is the ultimate place to equip
         you with the tools to grow in this space.
       </p>
-      <div className="flex justify-end space-x-5 mt-6 w-3/5">
+      <div className="flex justify-center md:justify-end space-x-5 mt-6 w-3/5">
+        <Login />
         <Signup />
-        <Button className="font-normal m-1 bg-white rounded-full px-6 border text-black border-black">
-          {' '}
-          Login{' '}
-        </Button>
       </div>
     </div>
   );

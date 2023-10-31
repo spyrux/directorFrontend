@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -11,35 +12,57 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export function DialogDemo() {
+export function Login() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
+        <Button className="font-normal font-nhgdp m-1 bg-white border-blue-800 border text-blue-800 rounded-full px-5 hover:text-white">
+          Login
+        </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] font-nhgdp text-base">
         <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
+          <DialogTitle>Log in to Direct'r</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Username
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
+        <DialogDescription> </DialogDescription>
+
+        <hr className="w-full max-w-screen-xl border-gray-200 sm:mx-auto dark:border-gray-700" />
+        <div className=" grid-cols-4 items-center gap-4">
+          <Label
+            htmlFor="username"
+            className="text-right font-nhgdp font-medium text-base"
+          >
+            Username
+          </Label>
+          <Input
+            id="username"
+            value="Pedro Duarte"
+            className="col-span-3 bg-gray-100 text-gray-400"
+          />
+        </div>
+        <div className="grid-cols-4 items-center gap-4">
+          <Label
+            htmlFor="password"
+            className="text-right font-nhgdp font-medium  text-base"
+          >
+            Password
+          </Label>
+          <Input
+            id="password"
+            className="col-span-3 bg-gray-100 text-gray-400"
+            placeholder="Shhh.. Don’t worry, we won’t tell!"
+            type="password"
+          />
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <DialogClose>
+            <Button className="font-normal m-1 border border-blue-800 bg-white text-blue-800 rounded-full px-5 hover:text-white">
+              Back
+            </Button>
+          </DialogClose>
+          <Button className="font-normal m-1 bg-blue-800 rounded-full px-5">
+            Submit
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

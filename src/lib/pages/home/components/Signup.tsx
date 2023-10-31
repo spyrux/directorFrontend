@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -16,76 +17,142 @@ export function Signup() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="font-normal m-1 bg-blue-800 rounded-full px-5">
+        <Button className="font-normal font-nhgdp m-1 bg-blue-800 rounded-full px-5">
           Sign up
         </Button>
       </DialogTrigger>
       <ScrollArea>
-        <DialogContent className="sm:max-w-xl max-h-96 grid-cols-1 overflow-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-500 scrollbar-track-gray-200">
+        <DialogContent className="sm:max-w-xl max-h-[500px] grid-cols-1 overflow-auto  font-nhgdp text-base">
           <DialogHeader>
             <DialogTitle>Sign up for Direct’r</DialogTitle>
             <br></br>
             <DialogDescription>
               Get ready to embark on your journey in the film industry...{' '}
-              <br></br>
-              <strong>We are excited for you!</strong>
+              <strong className=" text-black">We are excited for you!</strong>
             </DialogDescription>
           </DialogHeader>
           <hr className="w-full max-w-screen-xl border-gray-200 sm:mx-auto dark:border-gray-700 " />
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="profilephoto" className="text-right">
-                Upload a profile photo
-              </Label>
-              <Input
-                id="profilephoto"
-                value="@peduarte"
-                className="col-span-3"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="username" className="text-right">
+          <div className="grid gap-4 py-2">
+            <div className=" grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="username"
+                className="text-right font-nhgdp font-medium text-base"
+              >
                 Username
               </Label>
               <Input
                 id="username"
-                value="Pedro Duarte"
-                className="col-span-3"
+                placeholder="Pedro Duarte"
+                className="col-span-3 bg-gray-100 text-gray-400"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="password" className="text-right">
+            <div className="grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="password"
+                className="text-right font-medium  text-base"
+              >
                 Password
               </Label>
-              <Input id="password" value="@peduarte" className="col-span-3" />
+              <Input
+                id="password"
+                className="col-span-3 bg-gray-100 placeholder-gray-400"
+                placeholder="Shhh.. Don’t worry, we won’t tell!"
+                type="password"
+              />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="email" className="text-right">
+            <div className="grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="confirmpassword"
+                className="text-right font-medium  text-base"
+              >
+                Confirm Password
+              </Label>
+              <Input
+                id="confirmpassword"
+                className="col-span-3 bg-gray-100  placeholder-black placeholder-opacity-60"
+                placeholder="Type in your password again"
+                type="password"
+              />
+            </div>
+            <div className="grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="email"
+                className="text-right font-medium  text-base"
+              >
                 Email
               </Label>
-              <Input id="email" value="@peduarte" className="col-span-3" />
+              <Input
+                id="email"
+                placeholder="Your email"
+                className="col-span-3 bg-gray-100 text-gray-400"
+              />
             </div>
+            <br></br>
+            <DialogHeader>
+              <DialogTitle>Tell us more about you...</DialogTitle>
 
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
+              <DialogDescription>
+                This will appear on your profile.
+              </DialogDescription>
+            </DialogHeader>
+            <hr className="w-full max-w-screen-xl border-gray-200 sm:mx-auto dark:border-gray-700 " />
+            <div className="grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="profilephoto"
+                className="text-right font-medium  text-base"
+              >
+                Upload a profile photo
+              </Label>
+              <Input id="profilephoto" type="file" className="w-3/6" />
+            </div>
+            <div className="grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="displayname"
+                className="text-right font-medium  text-base"
+              >
                 Display Name
               </Label>
-              <Input id="email" value="@peduarte" className="col-span-3" />
+              <Input
+                id="displayname"
+                placeholder="@PulpFictionGhostWriter"
+                className="col-span-3 bg-gray-100 text-gray-400"
+              />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="occupation" className="text-right">
+
+            <div className="grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="occupation"
+                className="text-right font-medium  text-base"
+              >
                 Occupation
               </Label>
-              <Input id="occupation" value="@peduarte" className="col-span-3" />
+              <Input
+                id="occupation"
+                placeholder="Animator, producer, makeup artist, etc..."
+                className="col-span-3 bg-gray-100 text-gray-400"
+              />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="location" className="text-right">
+            <div className="grid-cols-4 items-center gap-4">
+              <Label
+                htmlFor="location"
+                className="text-right font-medium  text-base"
+              >
                 Location
               </Label>
-              <Input id="location" value="@peduarte" className="col-span-3" />
+              <Input
+                id="location"
+                placeholder="Where are you based?"
+                className="col-span-3 bg-gray-100 text-gray-400"
+              />
             </div>
           </div>
+
           <DialogFooter>
+            <DialogClose>
+              <Button className="font-normal m-1 border border-blue-800 bg-white text-blue-800 rounded-full px-5 hover:text-white">
+                Back
+              </Button>
+            </DialogClose>
             <Button className="font-normal m-1 bg-blue-800 rounded-full px-5">
               Sign up
             </Button>

@@ -10,15 +10,18 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-10 w-full bg-base-100/80 backdrop-blur-md">
+    <header className="sticky top-0 z-10 w-full bg-base-100/80 backdrop-blur-md font-nhgdp">
       <section className="wrapper mx-auto flex items-center justify-between">
-        <a className="flex" href="https://vitejs.dev" target="_blank">
-          <img src={logo} className="logo" alt="Director Logo" />
-          <h1 className=" font-bold text-5xl my-6">DIRECT’R</h1>
-        </a>
+        <Link className="flex" to={'/'}>
+          <img src={logo} className="logo h-20 md:h-24" alt="Director Logo" />
+          <h1 className=" hidden md:block font-bold text-2xl md:text-5xl my-10 md:my-7">
+            DIRECT’R
+          </h1>
+        </Link>
         {/* replace a with react router */}
         <div className="ml-auto  ">
           <NavigationMenu>
@@ -26,7 +29,7 @@ const Header = () => {
               <NavigationMenuItem>
                 <a href="/about">
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className=" font-normal ">About</p>
+                    <p className=" font-normal  ">About</p>
                   </NavigationMenuLink>
                 </a>
               </NavigationMenuItem>

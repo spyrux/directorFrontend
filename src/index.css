@@ -1,3 +1,4 @@
+@import url('https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -64,6 +65,26 @@
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
   }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ececec;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #969696;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #747474;
 }
 
 @layer base {
