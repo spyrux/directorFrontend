@@ -31,7 +31,7 @@
 
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --ring: transparent;
 
     --radius: 0.5rem;
   }
@@ -63,7 +63,7 @@
 
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --ring: transparent;
   }
 }
 
@@ -99,5 +99,9 @@
 @layer components {
   .li-footer {
     @apply font-normal pl-8 flex m-0.5;
+  }
+  .image-container-image {
+    width: auto;
+    height: auto;
   }
 }

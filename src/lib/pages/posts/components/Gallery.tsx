@@ -15,11 +15,13 @@ const images = [
 class Gallery extends Component {
   render() {
     return (
-      <Masonry columnsCount={3} gutter="10px">
-        {images.map((image, i) => (
-          <ImageCard key={i} image={image} />
-        ))}
-      </Masonry>
+      <div>
+        <Masonry columnsCount={3} gutter="10px">
+          {images.map((image, i) => (
+            <ImageCard key={i} image={image} />
+          ))}
+        </Masonry>
+      </div>
     );
   }
 }

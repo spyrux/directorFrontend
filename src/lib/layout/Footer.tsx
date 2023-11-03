@@ -66,7 +66,7 @@ const Footer = () => {
             <li>
               <div className="hidden md:block">
                 <h1 className="flex">❋ Newsletter</h1>
-                <p className="pl-4 font-normal">
+                <p className="pl-2 font-normal">
                   {' '}
                   Stay up to date on our latest news and updates.
                 </p>

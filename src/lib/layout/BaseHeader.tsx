@@ -18,7 +18,7 @@ const Header = () => {
       <section className="wrapper mx-auto flex items-center justify-between">
         <Link className="flex" to={'/'}>
           <img src={logo} className="logo h-20 md:h-24" alt="Director Logo" />
-          <h1 className=" hidden md:block font-bold text-2xl md:text-5xl my-10 md:my-7">
+          <h1 className=" hidden md:block font-bold text-2xl md:text-5xl my-10 md:my-7 ">
             DIRECT’R
           </h1>
         </Link>
