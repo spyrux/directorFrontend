@@ -72,7 +72,7 @@ const Footer = () => {
                 </p>
                 <span className="mt-16 flex">
                   <Input
-                    className=" border-none rounded-none font-light focus-visible:ring-0 w-4/6"
+                    className=" border-none rounded-none font-light focus-visible:ring-0 w-4/6 bg-inherit"
                     placeholder="Enter your email"
                   />
                   <Button className="font-normal w-2/6" variant={'ghost'}>
