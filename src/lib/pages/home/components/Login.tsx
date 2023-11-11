@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,7 +23,7 @@ export function Login() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] font-nhgdp text-base">
         <DialogHeader>
-          <DialogTitle>Log in to Direct'r</DialogTitle>
+          <DialogTitle>Log In to Direct'r</DialogTitle>
         </DialogHeader>
         <DialogDescription> </DialogDescription>
 
@@ -53,6 +54,9 @@ export function Login() {
             placeholder="Shhh.. Don’t worry, we won’t tell!"
             type="password"
           />
+          <a href="/resetpassword" className=" text-xs text-blue-800">
+            Forgot your password?
+          </a>
         </div>
         <DialogFooter>
           <DialogClose>

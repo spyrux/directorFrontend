@@ -1,7 +1,8 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-
+import leftArrow from '/Vector.svg';
+import rightArrow from '/Vector2.svg';
 const Features = () => {
   const arrowStyles: CSSProperties = {
     position: 'absolute',
@@ -25,9 +26,19 @@ const Features = () => {
         selectedItem={1}
         showThumbs={false}
         dynamicHeight={false}
-        width={'500'}
+        width={'600'}
         showIndicators={false}
         showStatus={false}
+        centerSlidePercentage={60}
+        renderItem={(item: ReactNode, options?: { isSelected: boolean }) => {
+          const opacity = options?.isSelected ? 1 : 0.3;
+
+          return (
+            <div style={{ opacity }} className="your-slide-class">
+              {item}
+            </div>
+          );
+        }}
         renderArrowPrev={(onClickHandler, hasPrev, label) =>
           hasPrev && (
             <button
@@ -36,7 +47,7 @@ const Features = () => {
               title={label}
               style={{ ...arrowStyles, left: 15 }}
             >
-              ⏴
+              <img src={leftArrow} className="max-h-6" />
             </button>
           )
         }
@@ -48,7 +59,7 @@ const Features = () => {
               title={label}
               style={{ ...arrowStyles, right: 15, maxHeight: 1 }}
             >
-              ⏵
+              <img src={rightArrow} className="max-h-6" />
             </button>
           )
         }
@@ -64,7 +75,7 @@ const Features = () => {
             For Others to Collaborate With You
           </p>
         </div>
-        <div className="flex-col text-center grid-cols-1">
+        <div>
           <h3 className=" text-lg">Unlimited Exploration</h3>
           <img
             src="public\explore.png"
