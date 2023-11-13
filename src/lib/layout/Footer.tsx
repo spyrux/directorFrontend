@@ -6,14 +6,18 @@ const Footer = () => {
     <footer className="wrapper">
       <hr className="w-full max-w-screen-xl my-4 md:my-8 border-gray-200 sm:mx-auto dark:border-gray-700 " />
       <div className="w-full max-w-screen-xl mx-auto font-nhgdp">
-        <div className="sm:flex  sm:justify-between p-4 md:p-0">
+        <div className="sm:flex  sm:justify-between py-4 md:p-0">
           <span className="text-l font-semibold whitespace-nowrap dark:text-white">
             <div className="flex items-center">
-              <img src={logo} className="w-6 h-6 mr-1 mb-1" alt="Vite logo" />
+              <img
+                src={logo}
+                className="w-6 h-6 mr-1 ml-1 mb-1"
+                alt="Vite logo"
+              />
               <p>DIRECT&apos;R</p>
             </div>
-            <p className="text-sm font-normal flex ml-0.5">All about film.</p>
-            <div className="md:pt-24 text-sm font-normal flex ">
+            <p className="text-sm font-normal flex ml-1.5">All about film.</p>
+            <div className="md:pt-24 text-sm font-normal flex ml-1 ">
               © 2023&nbsp;Direct&apos;r. All Rights Reserved.
             </div>
           </span>

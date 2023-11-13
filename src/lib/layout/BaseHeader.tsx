@@ -26,7 +26,7 @@ const Header = () => {
           <h1 className=" hidden md:block text-xl md:text-3xl my-10 md:my-7">
             DIRECT
           </h1>
-          <div className=" w-[2px] h-[2px] bg-red-600 md: my-[35px] mx-[1px]"></div>
+          <div className=" w-[2px] h-[2px] bg-red-600 md: my-[35px] ml-[1px]"></div>
           <h1 className=" hidden md:block text-xl md:text-3xl my-10 md:my-7">
             R
           </h1>

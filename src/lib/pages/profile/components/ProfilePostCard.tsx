@@ -11,15 +11,15 @@ import {
 } from '@/components/ui/dialog';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Label } from '@/components/ui/label';
+
 import { useState } from 'react';
 
-interface ImageCardProps {
+interface ProfilePostCardProps {
   key: number;
   image: string;
 }
 
-function ImageCard(props: ImageCardProps) {
+function ProfilePostCard(props: ProfilePostCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = () => {
@@ -34,22 +34,23 @@ function ImageCard(props: ImageCardProps) {
     <div className="">
       <Dialog open={isOpen} onOpenChange={closeDialog}>
         <DialogTrigger />
-        <div className=" flex">
-          <img
-            className="rounded-lg"
-            key={props.key}
-            src={props.image}
-            style={{
-              display: 'block',
-              cursor: 'pointer',
-              width: '50%',
-            }}
-            onClick={openDialog}
-          />
-        </div>
+
+        <img
+          className="rounded-lg overflow-hidden max-h-[200px]"
+          key={props.key}
+          src={props.image}
+          style={{
+            display: 'block',
+            cursor: 'pointer',
+            width: '300px',
+            height: 'auto',
+          }}
+          onClick={openDialog}
+        />
+
         {/* async get post details and media */}
 
-        <DialogContent className=" max-h-[900px]">
+        <DialogContent className=" max-h-[700px] overflow-y-scroll">
           <DialogHeader>
             <DialogTitle>Show profile with icon</DialogTitle>
           </DialogHeader>
@@ -96,9 +97,16 @@ function ImageCard(props: ImageCardProps) {
         </DialogContent>
       </Dialog>
       {/* replace p with clickable link to profile */}
-      <p className="">{props.image}</p>
+      <div className="">
+        <div className="flex justify-between items-baseline">
+          <p className=" font-semibold mt-1 align-baseline text-sm"> Title</p>
+          <p className="mt-1 text-zinc-400 text-xs align-baseline justify-end">
+            edit
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default ImageCard;
+export default ProfilePostCard;
