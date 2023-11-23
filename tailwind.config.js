@@ -17,7 +17,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        nhgdp: ['Neue Haas Grotesk Display Pro', 'cursive'],
+        nhgdp: ['Neue Haas Grotesk Display Pro', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',

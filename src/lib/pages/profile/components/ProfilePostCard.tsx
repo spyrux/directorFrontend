@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -31,7 +30,7 @@ function ProfilePostCard(props: ProfilePostCardProps) {
   };
 
   return (
-    <div className="">
+    <div>
       <Dialog open={isOpen} onOpenChange={closeDialog}>
         <DialogTrigger />
 
@@ -99,8 +98,8 @@ function ProfilePostCard(props: ProfilePostCardProps) {
       {/* replace p with clickable link to profile */}
       <div className="">
         <div className="flex justify-between items-baseline">
-          <p className=" font-semibold mt-1 align-baseline text-sm"> Title</p>
-          <p className="mt-1 text-zinc-400 text-xs align-baseline justify-end">
+          <p className=" my-2 align-baseline text-sm"> Title</p>
+          <p className="my-2 text-zinc-400 text-xs align-baseline justify-end">
             edit
           </p>
         </div>

@@ -2,7 +2,8 @@ import { useState, ReactElement } from 'react';
 import ProfileProjectComponent from './ProfileProjectComponent';
 import ProfileJobComponent from './ProfileJobComponent';
 import { Button } from '@/components/ui/button';
-
+import { ProfileProjectDialog } from './ProfileProjectDialog';
+import { ProfileJobDialog } from './ProfileJobDialog';
 type ComponentType = 'ProfileProjectComponent' | 'ProfileJobComponent';
 
 function ProfileContainer(): ReactElement {
@@ -15,20 +16,25 @@ function ProfileContainer(): ReactElement {
   };
 
   let dynamicComponent: ReactElement;
+  let dynamicCreate: ReactElement;
+
   switch (selectedComponent) {
     case 'ProfileProjectComponent':
       dynamicComponent = <ProfileProjectComponent />;
+      dynamicCreate = <ProfileProjectDialog />;
       break;
     case 'ProfileJobComponent':
       dynamicComponent = <ProfileJobComponent />;
+      dynamicCreate = <ProfileJobDialog />;
       break;
     default:
       dynamicComponent = <ProfileProjectComponent />; // Adjust based on your needs
+      dynamicCreate = <ProfileProjectDialog />;
   }
 
   return (
     <div>
-      <div>
+      <div className="flex">
         <Button
           onClick={() => handleComponentChange('ProfileProjectComponent')}
           className={`p-2 hover:text-zinc-600 ${
@@ -51,6 +57,7 @@ function ProfileContainer(): ReactElement {
         >
           Job Listings
         </Button>
+        <div className="ml-auto">{dynamicCreate}</div>
       </div>
       <div className="p-2">{dynamicComponent}</div>
     </div>
