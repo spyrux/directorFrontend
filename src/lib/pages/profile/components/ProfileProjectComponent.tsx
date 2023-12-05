@@ -1,4 +1,4 @@
-import ProfilePostCard from './ProfilePostCard';
+import ProfileProjectCard from './ProfileProjectCard';
 
 const images = [
   'https://picsum.photos/200/300?image=1050',
@@ -14,9 +14,9 @@ const images = [
 //fetch profile propject data then render a grid with projects
 function ProfileProjectComponent() {
   return (
-    <div className=" grid grid-cols-3 gap-6 w-[920px] overflow-scroll h-[520px] pr-5 gap-y-1">
+    <div className=" grid grid-cols-3 gap-6 w-[920px] overflow-scroll h-[520px] pr-5 gap-y-0">
       {images.map((image, i) => (
-        <ProfilePostCard key={i} image={image} />
+        <ProfileProjectCard key={i} image={image} />
       ))}
     </div>
   );

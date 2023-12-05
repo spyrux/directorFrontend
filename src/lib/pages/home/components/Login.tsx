@@ -10,14 +10,52 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import * as z from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const formSchema = z.object({
+  username: z.string().min(1),
+  password: z.string().min(1),
+});
 
 export function Login() {
+  const [dialogState, setDialogState] = useState(false);
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
+
+  const handleOpenDialog = () => {
+    form.reset();
+    // Reset the form values
+  };
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(JSON.stringify(values, null, 2));
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="font-normal font-nhgdp m-1 bg-white border-blue-800 border text-blue-800 rounded-full px-5 hover:text-white">
+        <Button
+          onClick={handleOpenDialog}
+          className="font-normal font-nhgdp m-1 bg-white border-blue-800 border text-blue-800 rounded-full px-5 hover:text-white"
+        >
           Login
         </Button>
       </DialogTrigger>
@@ -28,46 +66,55 @@ export function Login() {
         <DialogDescription> </DialogDescription>
 
         <hr className="w-full max-w-screen-xl border-gray-200 sm:mx-auto dark:border-gray-700" />
-        <div className=" grid-cols-4 items-center gap-4">
-          <Label
-            htmlFor="username"
-            className="text-right font-nhgdp font-medium text-base"
-          >
-            Username
-          </Label>
-          <Input
-            id="username"
-            value="Pedro Duarte"
-            className="col-span-3 bg-gray-100 text-gray-400"
-          />
-        </div>
-        <div className="grid-cols-4 items-center gap-4">
-          <Label
-            htmlFor="password"
-            className="text-right font-nhgdp font-medium  text-base"
-          >
-            Password
-          </Label>
-          <Input
-            id="password"
-            className="col-span-3 bg-gray-100 text-gray-400"
-            placeholder="Shhh.. Don’t worry, we won’t tell!"
-            type="password"
-          />
-          <a href="/resetpassword" className=" text-xs text-blue-800">
-            Forgot your password?
-          </a>
-        </div>
-        <DialogFooter>
-          <DialogClose>
-            <Button className="font-normal m-1 border border-blue-800 bg-white text-blue-800 rounded-full px-5 hover:text-white">
-              Back
-            </Button>
-          </DialogClose>
-          <Button className="font-normal m-1 bg-blue-800 rounded-full px-5">
-            Submit
-          </Button>
-        </DialogFooter>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="filmgeek"
+                      {...field}
+                      className="bg-gray-100"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="*******"
+                      {...field}
+                      className="bg-gray-100"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <a href="/resetpassword" className=" text-xs text-blue-800">
+              Forgot your password?
+            </a>
+
+            <DialogFooter>
+              <Button
+                type="submit"
+                className="font-normal m-1 bg-blue-800 rounded-full px-5"
+              >
+                Submit
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

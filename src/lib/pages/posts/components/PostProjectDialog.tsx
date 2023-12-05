@@ -52,12 +52,12 @@ const formSchema = z.object({
   date: z.date(),
   role: z.string(),
   description: z.string(),
-  files: z.any(),
+  files: z.array(z.string()),
 });
 
-export function ProfileProjectDialog() {
+export function PostProjectDialog() {
   const [media, setMedia] = useState<File[]>([]);
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [previewFiles, setPreviewFiles] = useState<string[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -66,32 +66,32 @@ export function ProfileProjectDialog() {
       date: new Date(),
       role: '',
       description: '',
-      files: undefined,
+      files: [],
     },
   });
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
     if (selectedFiles) {
       const fileArray = Array.from(selectedFiles);
-      const urlArray = fileArray.map((file) => URL.createObjectURL(file));
+      const nameArray = fileArray.map((file) => file.name);
       setMedia([...media, ...fileArray]);
-      setPreviewImages([...previewImages, ...urlArray]);
+      setPreviewFiles([...previewFiles, ...nameArray]);
     }
   };
-  const removeImage = (index: number) => {
+  const removeFile = (index: number) => {
     const updatedImages = [...media];
-    const updatedPreviews = [...previewImages];
+    const updatedPreviews = [...previewFiles];
     updatedImages.splice(index, 1);
     updatedPreviews.splice(index, 1);
     setMedia(updatedImages);
-    setPreviewImages(updatedPreviews);
+    setPreviewFiles(updatedPreviews);
   };
 
   const fileRef = form.register('files', { required: true });
   // 2. Define a submit handler.
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    values.files = media;
-    console.log(values.files);
+    values.files = previewFiles;
     console.log(JSON.stringify(values, null, 2));
   }
 
@@ -129,7 +129,7 @@ export function ProfileProjectDialog() {
             </div>
           </div>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
                 name="name"
@@ -138,7 +138,7 @@ export function ProfileProjectDialog() {
                     <FormLabel>Project name*</FormLabel>
                     <FormControl>
                       <Input
-                        required={true}
+                        className="bg-gray-100"
                         placeholder="Pulp fiction"
                         {...field}
                       />
@@ -159,7 +159,7 @@ export function ProfileProjectDialog() {
                           <Button
                             variant={'outline'}
                             className={cn(
-                              'w-[240px] pl-3 text-left font-normal',
+                              'w-[240px] pl-3 text-left font-normal bg-gray-100',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
@@ -196,7 +196,7 @@ export function ProfileProjectDialog() {
                     <FormLabel>Role*</FormLabel>
                     <FormControl>
                       <Input
-                        required={true}
+                        className="bg-gray-100"
                         placeholder="Animator, producer, makeup artist, etc..."
                         {...field}
                       />
@@ -235,7 +235,9 @@ export function ProfileProjectDialog() {
                           className="inline-block overflow-hidden cursor-pointer ml-52"
                         >
                           <div>
-                            <p className=" underline">Upload Attachment</p>
+                            <p className=" underline text-gray-400">
+                              Upload Attachment
+                            </p>
                           </div>
                         </Label>
                         <Input
@@ -249,18 +251,14 @@ export function ProfileProjectDialog() {
                       </div>
                     </FormControl>
                     <FormMessage />
-                    <div className="flex mt-8 flex-wrap">
-                      {previewImages.map((preview, index) => (
-                        <div className="flex m-2" key={index}>
-                          <img
-                            src={preview}
-                            alt={`Preview ${index}`}
-                            style={{ width: '125px', height: 'auto' }}
-                            className=" hover:"
-                          />
+                    <div className="flex  flex-col mt-8 flex-wrap">
+                      {previewFiles.map((preview, index) => (
+                        <div className="flex m-2 relative" key={index}>
+                          <p className="text-sm mr-1 w-full">{preview}</p>
+
                           <Button
-                            className=" max-w-[0.25px] max-h-[0.25px] px-3 mx-0.5"
-                            onClick={() => removeImage(index)}
+                            className=" mt-0.5 max-w-[0.25px] max-h-[0.25px] px-2 mx-0.5 rounded-sm  text-xs  text-gray-600 border border-gray-400 bg-transparent hover:bg-gray-200"
+                            onClick={() => removeFile(index)}
                           >
                             X
                           </Button>

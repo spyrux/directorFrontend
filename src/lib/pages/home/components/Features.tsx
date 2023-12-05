@@ -14,7 +14,10 @@ const Features = () => {
   };
 
   return (
-    <div className=" flex flex-col items-center justify-center h-96">
+    <div
+      className=" flex flex-col items-center justify-center h-96"
+      id="features"
+    >
       <p className=" text-xl text-left self-start  w-4/5 ml-auto mb-10">
         Features
       </p>

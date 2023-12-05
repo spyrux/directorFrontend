@@ -15,12 +15,12 @@ import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-interface PostCardProps {
+interface ProjectCardProps {
   key: number;
   image: string;
 }
 
-function PostCard(props: PostCardProps) {
+function ProjectCard(props: ProjectCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = () => {
@@ -32,7 +32,7 @@ function PostCard(props: PostCardProps) {
   };
 
   return (
-    <div className="">
+    <div className="mt-0 pt-0">
       <Dialog open={isOpen} onOpenChange={closeDialog}>
         <DialogTrigger />
 
@@ -42,8 +42,12 @@ function PostCard(props: PostCardProps) {
           src={props.image}
           style={{
             display: 'block',
+            overflow: 'hidden',
             cursor: 'pointer',
-            width: '100%',
+            objectFit: 'contain', // Maintain original aspect ratio
+
+            width: '100%', // Ensure original aspect ratio
+            height: 'auto', // Ensure original aspect ratio
           }}
           onClick={openDialog}
         />
@@ -97,21 +101,23 @@ function PostCard(props: PostCardProps) {
         </DialogContent>
       </Dialog>
       {/* replace p with clickable link to profile */}
-      <div className="flex py-2">
+      <div className="flex pt-2.5">
         <Avatar className="h-10 w-10">
           <AvatarImage src={props.image}></AvatarImage>
           <AvatarFallback>A</AvatarFallback>
         </Avatar>
         <div className="flex items-baseline">
-          <p className=" font-semibold my-2 ml-2 mr-1 align-baseline text-sm ">
+          <p className=" font-semibold mt-2.5 ml-2 mr-1 align-baseline text-sm ">
             {' '}
             Jeff Bezos
           </p>
-          <p className="my-2 text-zinc-400 text-xs align-baseline">@user</p>
+          <p className="mt-2.5 ml-2 text-zinc-400 text-xs align-baseline">
+            @user
+          </p>
         </div>
       </div>
     </div>
   );
 }
 
-export default PostCard;
+export default ProjectCard;

@@ -2,8 +2,8 @@ import { useState, ReactElement } from 'react';
 import ProfileProjectComponent from './ProfileProjectComponent';
 import ProfileJobComponent from './ProfileJobComponent';
 import { Button } from '@/components/ui/button';
-import { ProfileProjectDialog } from './ProfileProjectDialog';
-import { ProfileJobDialog } from './ProfileJobDialog';
+import { PostProjectDialog } from '../../posts/components/PostProjectDialog';
+import { PostJobDialog } from '../../jobBoard/components/PostJobDialog';
 type ComponentType = 'ProfileProjectComponent' | 'ProfileJobComponent';
 
 function ProfileContainer(): ReactElement {
@@ -21,15 +21,15 @@ function ProfileContainer(): ReactElement {
   switch (selectedComponent) {
     case 'ProfileProjectComponent':
       dynamicComponent = <ProfileProjectComponent />;
-      dynamicCreate = <ProfileProjectDialog />;
+      dynamicCreate = <PostProjectDialog />;
       break;
     case 'ProfileJobComponent':
       dynamicComponent = <ProfileJobComponent />;
-      dynamicCreate = <ProfileJobDialog />;
+      dynamicCreate = <PostJobDialog />;
       break;
     default:
       dynamicComponent = <ProfileProjectComponent />; // Adjust based on your needs
-      dynamicCreate = <ProfileProjectDialog />;
+      dynamicCreate = <PostProjectDialog />;
   }
 
   return (

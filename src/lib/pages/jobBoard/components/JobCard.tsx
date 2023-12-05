@@ -18,7 +18,7 @@ interface JobCardProps {
 
 function JobCard(props: JobCardProps) {
   return (
-    <div className="job-card w-[280px]">
+    <div className="job-card w-[250px] text-left">
       <h2 className=" text-lg font-bold">{props.role}</h2>
       <div className="text-sm">
         <p> {props.poster}</p>
@@ -40,10 +40,10 @@ function JobCard(props: JobCardProps) {
         <img src={props.image} className="overflow-hidden" alt="Job" />
       </div>
       <div className="flex justify-end">
-        <Button className="rounded-full mt-3 mx-1">Apply Now 🡭</Button>
-        <Button className="rounded-full bg-inherit outline-black outline outline-1 mt-3 mx-1 text-black hover:bg-gray-300">
+        <Button className="rounded-full bg-inherit outline-black outline outline-1 mt-3 mb-0.5 mx-1 text-black hover:bg-gray-300">
           Learn More
-        </Button>
+        </Button>{' '}
+        <Button className="rounded-full mt-3 ml-1 mb-0.5">Apply Now 🡭</Button>
       </div>
     </div>
   );

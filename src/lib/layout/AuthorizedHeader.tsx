@@ -10,29 +10,42 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-10 w-full bg-base-100/80 backdrop-blur-md">
-      <section className="wrapper mx-auto flex items-center justify-between">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={logo} className="logo" alt="Vite logo" />
-        </a>
-        <div className="ml-auto">
-          <NavigationMenu className="">
+    <header className="sticky top-0 z-10 w-full bg-base-100/80 backdrop-blur-md font-nhgdp">
+      <section className="wrapper mx-auto flex items-center justify-between w-8/12">
+        <Link className="flex" to={'/'}>
+          <img
+            src={logo}
+            className="logo h-12 py-1 md:h-12 my-4"
+            alt="Director Logo"
+          />
+        </Link>
+        {/* replace a with react router */}
+        <div className="ml-auto  ">
+          <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <NavigationMenuLink>Link</NavigationMenuLink>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <a href="/docs" legacyBehavior passHref>
+                <a href="/about" className="">
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Documentation
-                  </NavigationMenuLink> 
+                    <p className=" font-normal  ">Home</p>
+                  </NavigationMenuLink>
+                </a>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <a href="/#features">
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <p className=" font-normal">Jobs</p>
+                  </NavigationMenuLink>
+                </a>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <a href="/roadmap">
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    <p className=" font-normal">Profile</p>
+                  </NavigationMenuLink>
                 </a>
               </NavigationMenuItem>
             </NavigationMenuList>
