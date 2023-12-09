@@ -4,7 +4,9 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
-import edit from '../../../../../public/icons8-edit-48.png';
+
+import { EditJobDialog } from '../../jobBoard/components/EditJobsDialog';
+
 // remove placeholder values with just posting uuid to grab info when fetching
 interface JobCardProps {
   key: number;
@@ -40,13 +42,11 @@ function ProfileJobCard(props: JobCardProps) {
         <img src={props.image} className="overflow-hidden" alt="Job" />
       </div>
       <div className="flex justify-end">
-        <Button className="rounded-full bg-inherit outline-black outline outline-1 mt-3 mb-0.5 mx-1 text-black px-6 hover:bg-gray-300">
+        <Button className="rounded-full bg-inherit outline-black outline outline-1 mt-3 mb-0.5 mx-1 text-black px-6 hover:bg-gray-300 h-10">
           Open
         </Button>
         {/* open links to job page to view and edit opens a dialog to edit */}
-        <Button className="rounded-full mt-3 ml-1 mb-0.5 px-5">
-          Edit <img className="h-4 ml-2" src={edit}></img>
-        </Button>
+        <EditJobDialog />
       </div>
     </div>
   );

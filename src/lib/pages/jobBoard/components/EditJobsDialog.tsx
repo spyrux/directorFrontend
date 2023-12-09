@@ -28,11 +28,15 @@ import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useState } from 'react';
-import {
-  CountryDropdown,
-  RegionDropdown,
-  CountryRegionData,
-} from 'react-country-region-selector';
+import edit from '../../../../../public/icons8-edit-48.png';
+
+const MAX_FILE_SIZE = 500000;
+const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+];
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -50,12 +54,11 @@ const formSchema = z.object({
   files: z.array(z.string()),
 });
 
-export function PostJobDialog() {
+export function EditJobDialog() {
   const [media, setMedia] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [country, setCountry] = useState('');
   const [region, setRegion] = useState('');
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -65,6 +68,13 @@ export function PostJobDialog() {
       project: '',
       region: '',
       country: '',
+      about: '',
+      responsibilities: '',
+      qualifications: '',
+      perks: '',
+      application: '',
+      project: '',
+      type: '',
       files: [],
     },
   });
@@ -72,7 +82,6 @@ export function PostJobDialog() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(JSON.stringify(values, null, 2));
   }
-
   const handleCountryChange = (e: string) => {
     const country = e;
     setCountry(country);
@@ -103,18 +112,19 @@ export function PostJobDialog() {
   };
 
   const fileRef = form.register('files', { required: true });
+  //   fetch individual post info then edit and update
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="font-normal font-nhgdp bg-blue-800 rounded-full px-5">
-          Post Job
+        <Button className="rounded-full mt-3 ml-1 mb-0.5 px-5  h-10 outline-black outline outline-1">
+          Edit <img className="h-4 ml-2" src={edit}></img>
         </Button>
       </DialogTrigger>
       <ScrollArea>
         <DialogContent className="sm:max-w-xl max-h-[700px] grid-cols-1 overflow-y-auto overflow-x-hidden  font-nhgdp text-base">
           <DialogHeader>
-            <DialogTitle>Post job</DialogTitle>
+            <DialogTitle>Edit Job</DialogTitle>
           </DialogHeader>
           <hr className="w-full max-w-screen-xl border-gray-200 sm:mx-auto dark:border-gray-700 " />
           <div className="grid gap-4 mt-1">
@@ -401,7 +411,7 @@ export function PostJobDialog() {
                 className="font-normal flex bg-blue-800 rounded-full px-5  ml-auto"
                 type="submit"
               >
-                Post
+                Done
               </Button>
             </form>
           </Form>

@@ -34,7 +34,7 @@ function Jobs() {
         </div>
 
         <div className="flex items-baseline w-[78%]">
-          <h1 className=" text-md my-4 align-baseline">Open Roles</h1>
+          <h1 className=" text-md my-6 align-baseline">Open Roles</h1>
           <a className=" text-md my-4 ml-auto text-gray-400 hover:underline hover:cursor-pointer text-sm align-baseline">
             View All
           </a>

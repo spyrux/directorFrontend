@@ -46,9 +46,10 @@ function ProfileContainer(): ReactElement {
         >
           Projects
         </Button>
+        <p className="mt-2 text-gray-400">/</p>
         <Button
           onClick={() => handleComponentChange('ProfileJobComponent')}
-          className={`p-2 hover:text-zinc-600${
+          className={`p-2 hover:text-zinc-600 ${
             selectedComponent === 'ProfileJobComponent'
               ? 'text-zinc-400 hover:text-zinc-400'
               : ''

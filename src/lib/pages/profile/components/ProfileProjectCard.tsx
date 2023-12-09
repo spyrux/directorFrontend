@@ -12,13 +12,14 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { useState } from 'react';
+import { EditProjectDialog } from '../../posts/components/EditProjectDialog';
 
-interface ProfilePostCardProps {
+interface ProfileProjectCardProps {
   key: number;
   image: string;
 }
 
-function ProfilePostCard(props: ProfilePostCardProps) {
+function ProfileProjectCard(props: ProfileProjectCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = () => {
@@ -35,7 +36,7 @@ function ProfilePostCard(props: ProfilePostCardProps) {
         <DialogTrigger />
 
         <img
-          className="rounded-lg overflow-hidden max-h-[200px]"
+          className="rounded-lg overflow-hidden max-h-[200px] shadow-sm border"
           key={props.key}
           src={props.image}
           style={{
@@ -98,14 +99,14 @@ function ProfilePostCard(props: ProfilePostCardProps) {
       {/* replace p with clickable link to profile */}
       <div className="">
         <div className="flex justify-between items-baseline">
-          <p className=" my-2 align-baseline text-s"> Title</p>
-          <p className="my-2 text-gray-400 text-xs align-baseline justify-end underline">
-            Edit
-          </p>
+          <p className="  align-baseline text-s"> Title</p>
+          <div className="justify-end align-baseline">
+            <EditProjectDialog />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default ProfilePostCard;
+export default ProfileProjectCard;
