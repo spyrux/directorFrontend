@@ -59,8 +59,7 @@ const formSchema = z.object({
 export function EditProjectDialog() {
   const [media, setMedia] = useState<File[]>([]);
   const [previewFiles, setPreviewFiles] = useState<string[]>([]);
-  const [country, setCountry] = useState('');
-  const [region, setRegion] = useState('');
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

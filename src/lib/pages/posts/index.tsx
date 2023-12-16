@@ -19,7 +19,7 @@ function Posts() {
         </div>
       </div>
 
-      <hr className="w-full max-w-screen-xl my-4 md:my-8 border-gray-200 sm:mx-auto dark:border-gray-700 " />
+      <hr className="w-[66%]  my-4 md:my-8 border-gray-200 sm:mx-auto dark:border-gray-700 " />
       <div className="">
         <Gallery />
       </div>

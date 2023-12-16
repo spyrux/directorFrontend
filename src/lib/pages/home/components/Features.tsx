@@ -18,12 +18,15 @@ const Features = () => {
       className=" flex flex-col items-center justify-center h-96"
       id="features"
     >
-      <p className=" text-xl text-left self-start  w-4/5 ml-auto mb-10">
+      <p className=" text-xl text-left self-start  w-4/5 ml-auto mb-2 font-semibold">
         Features
+      </p>
+      <p className=" text-md text-left self-start  w-4/5 ml-auto mb-12">
+        Scroll below to view our features and pages!
       </p>
 
       <Carousel
-        className="h-96 w-3/5"
+        className="h-96 w-3/5 mb-64"
         centerMode={true}
         infiniteLoop
         selectedItem={1}
@@ -68,37 +71,64 @@ const Features = () => {
         }
       >
         <div>
-          <h3 className=" text-lg">Abundance of opportunity</h3>
           <img
             src="public\opportunity.png"
-            style={{ height: '300px', width: 'auto' }}
+            style={{
+              height: '300px',
+              width: 'auto',
+              border: '1px solid #909090',
+              borderRadius: '8px',
+            }}
           ></img>
-          <p className="max-w-[400px] mx-auto  text-gray-600">
-            Browse for Opportunities That Fit Your Goals and Also Upload Roles
-            For Others to Collaborate With You
-          </p>
+
+          <div className="max-w-[500px] mx-auto  text-left my-4">
+            <h3 className=" text-lg text-left my-2">
+              Abundance of opportunity
+            </h3>
+            <p className="mx-auto  text-gray-600  text-sm">
+              Browse for Opportunities That Fit Your Goals and Also Upload Roles
+              For Others to Collaborate With You
+            </p>
+          </div>
         </div>
         <div>
-          <h3 className=" text-lg">Unlimited Exploration</h3>
           <img
             src="public\explore.png"
-            style={{ height: '300px', width: 'auto' }}
+            style={{
+              height: '300px',
+              width: 'auto',
+              border: '1px solid #909090',
+              borderRadius: '8px',
+            }}
           ></img>
-          <p className="max-w-[300px] mx-auto text-gray-600">
-            A Homepage That Allows You to Explore the Presence and Craft of The
-            Other Users Work
-          </p>
+
+          <div className="max-w-[430px] mx-auto  text-left my-4">
+            <h3 className=" text-lg text-left my-2">Unlimited Exploration</h3>
+            <p className="mx-auto  text-gray-600  text-sm">
+              A Homepage That Allows You to Explore the Presence and Craft of
+              The Other Users Work
+            </p>
+          </div>
         </div>
+
         <div>
-          <h3 className=" text-lg">Your own film portfolio</h3>
           <img
             src="public\portfolio.png"
-            style={{ height: '300px', width: 'auto' }}
+            style={{
+              height: '300px',
+              width: 'auto',
+              border: '1px solid #909090',
+              borderRadius: '8px',
+            }}
           ></img>
-          <p className="max-w-[400px] mx-auto  text-gray-600">
-            Upload and Curate Your Portfolio for Other Users to See, Allowing
-            Others to Understand Who You Are
-          </p>
+
+          <div className="max-w-[400px] mx-auto  text-left my-4">
+            <h3 className=" text-lg text-left my-2">Your own film portfolio</h3>
+            <p className="mx-auto  text-gray-600  text-sm">
+              Upload and Curate Your Portfolio for Other Users to See, Allowing
+              Others to Understand Who You Are
+            </p>
+          </div>
         </div>
       </Carousel>
     </div>

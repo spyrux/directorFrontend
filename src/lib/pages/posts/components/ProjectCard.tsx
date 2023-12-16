@@ -56,7 +56,24 @@ function ProjectCard(props: ProjectCardProps) {
 
         <DialogContent className=" max-h-[700px] overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>Show profile with icon</DialogTitle>
+            <DialogTitle>
+              <div className="flex">
+                <Avatar className="h-12 w-12 my-1">
+                  <AvatarImage src={props.image} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <p className="my-auto flex items-baseline">
+                  {' '}
+                  <p className=" font-semibold  ml-2 mr-1 align-baseline text-base ">
+                    {' '}
+                    Jeff Bezos
+                  </p>
+                  <p className="  text-zinc-400 text-sm align-baseline font-normal">
+                    @user
+                  </p>
+                </p>
+              </div>
+            </DialogTitle>
           </DialogHeader>
 
           <DialogDescription className="flex items-center justify-center ">
@@ -65,7 +82,7 @@ function ProjectCard(props: ProjectCardProps) {
                 thumbWidth={100}
                 showStatus={false}
                 dynamicHeight={true}
-                width={400}
+                width={450}
               >
                 <div>
                   <img

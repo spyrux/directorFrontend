@@ -74,7 +74,7 @@ const Footer = () => {
                   {' '}
                   Stay up to date on our latest news and updates.
                 </p>
-                <span className="mt-16 flex">
+                <span className="mt-12 flex">
                   <Input
                     className=" border-none rounded-none font-light focus-visible:ring-0 w-4/6 bg-inherit"
                     placeholder="Enter your email"
@@ -85,6 +85,11 @@ const Footer = () => {
                   </Button>
                 </span>
                 <hr className=" border-gray-200  sm:mx-auto dark:border-gray-700 " />
+                <p className="text-right mt-6 font-normal text-xs">
+                  {' '}
+                  Have Feedback?
+                  <a className="ml-1 underline text-gray-400">Contact Us</a>
+                </p>
               </div>
             </li>
           </ul>

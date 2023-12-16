@@ -24,15 +24,14 @@ import { Label } from '@/components/ui/label';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import GoogleLogin from './GoogleLogin';
 
 const formSchema = z.object({
   username: z.string().min(1),
   password: z.string().min(1),
 });
 
-export function Login() {
-  const [dialogState, setDialogState] = useState(true);
+export function LoginFuture() {
+  const [dialogState, setDialogState] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,9 +63,58 @@ export function Login() {
         <DialogHeader>
           <DialogTitle>Log In to Direct'r</DialogTitle>
         </DialogHeader>
-        <DialogDescription></DialogDescription>
+        <DialogDescription> </DialogDescription>
+
         <hr className="w-full max-w-screen-xl border-gray-200 sm:mx-auto dark:border-gray-700" />
-        <GoogleLogin />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="filmgeek"
+                      {...field}
+                      className="bg-gray-100"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="*******"
+                      {...field}
+                      className="bg-gray-100"
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <a href="/resetpassword" className=" text-xs text-blue-800">
+              Forgot your password?
+            </a>
+
+            <DialogFooter>
+              <Button
+                type="submit"
+                className="font-normal m-1 bg-blue-800 rounded-full px-5"
+              >
+                Submit
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );

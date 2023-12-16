@@ -3,9 +3,9 @@ export interface JobViewProps {
   userId: string;
   jobId: string;
   role: string;
-  image: string;
+  files: string[];
   poster: string;
-  city: string;
+  region: string;
   country: string;
   contact: string;
   type: string;

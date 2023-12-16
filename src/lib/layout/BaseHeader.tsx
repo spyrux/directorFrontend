@@ -12,6 +12,8 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Link } from 'react-router-dom';
+import { Login } from '../pages/home/components/Login';
+import { Signup } from '../pages/home/components/Signup';
 
 const Header = () => {
   return (
@@ -32,41 +34,9 @@ const Header = () => {
           </h1>
         </Link>
         {/* replace a with react router */}
-        <div className="ml-auto  ">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <a href="/about" className="">
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className=" font-normal  ">About</p>
-                  </NavigationMenuLink>
-                </a>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <a href="/#features">
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className=" font-normal">Features</p>
-                  </NavigationMenuLink>
-                </a>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <a href="/roadmap">
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className=" font-normal">Roadmap</p>
-                  </NavigationMenuLink>
-                </a>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <a href="/team">
-                  <NavigationMenuLink
-                    className={`${navigationMenuTriggerStyle()}`}
-                  >
-                    <p className=" font-normal">Team</p>
-                  </NavigationMenuLink>
-                </a>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+        <div className="ml-auto flex ">
+          <Signup />
+          <Login />
         </div>
       </section>
     </header>

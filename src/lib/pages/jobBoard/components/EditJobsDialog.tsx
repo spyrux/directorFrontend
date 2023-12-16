@@ -28,6 +28,12 @@ import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useState } from 'react';
+import {
+  CountryDropdown,
+  RegionDropdown,
+  CountryRegionData,
+} from 'react-country-region-selector';
+
 import edit from '../../../../../public/icons8-edit-48.png';
 
 const MAX_FILE_SIZE = 500000;
@@ -40,18 +46,23 @@ const ACCEPTED_IMAGE_TYPES = [
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
+
+  summary: z.string(),
   contact: z.string(),
-  description: z.string(),
   project: z.string(),
-  type: z.string(),
   country: z.string(),
   region: z.string(),
-  perks: z.string(),
-  qualifications: z.string(),
-  application: z.string(),
-  responsibilities: z.string(),
-  about: z.string(),
-  files: z.array(z.string()),
+
+  jobDetails: z.object({
+    description: z.string(),
+    perks: z.string(),
+    type: z.string(),
+    qualifications: z.string(),
+    application: z.string(),
+    responsibilities: z.string(),
+  }),
+
+  files: z.any(),
 });
 
 export function EditJobDialog() {
@@ -59,22 +70,26 @@ export function EditJobDialog() {
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [country, setCountry] = useState('');
   const [region, setRegion] = useState('');
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
+      title: 'asdasdasd',
+
+      summary: '',
       contact: '',
-      description: '',
       project: '',
-      region: '',
       country: '',
-      about: '',
-      responsibilities: '',
-      qualifications: '',
-      perks: '',
-      application: '',
-      project: '',
-      type: '',
+      region: '',
+
+      jobDetails: {
+        description: '',
+        perks: '',
+        type: '',
+        qualifications: '',
+        application: '',
+        responsibilities: '',
+      },
       files: [],
     },
   });
@@ -112,6 +127,7 @@ export function EditJobDialog() {
   };
 
   const fileRef = form.register('files', { required: true });
+
   //   fetch individual post info then edit and update
 
   return (
@@ -205,7 +221,7 @@ export function EditJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="type"
+                name="jobDetails.type"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Type of Work</FormLabel>
@@ -231,6 +247,7 @@ export function EditJobDialog() {
                       <FormControl className="max-w-[300px] rounded-sm  text-sm border">
                         <CountryDropdown
                           value={country}
+                          valueType="short"
                           onChange={(e) => handleCountryChange(e)}
                         />
                       </FormControl>
@@ -248,6 +265,7 @@ export function EditJobDialog() {
                         <RegionDropdown
                           value={region}
                           country={country}
+                          countryValueType="short"
                           onChange={(val) => handleRegionChange(val)}
                         />
                       </FormControl>
@@ -258,7 +276,7 @@ export function EditJobDialog() {
               </div>
               <FormField
                 control={form.control}
-                name="about"
+                name="summary"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>About</FormLabel>
@@ -275,7 +293,7 @@ export function EditJobDialog() {
               />{' '}
               <FormField
                 control={form.control}
-                name="description"
+                name="jobDetails.description"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Description</FormLabel>
@@ -292,7 +310,7 @@ export function EditJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="responsibilities"
+                name="jobDetails.responsibilities"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Responsibilities</FormLabel>
@@ -309,7 +327,7 @@ export function EditJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="qualifications"
+                name="jobDetails.qualifications"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Qualifications</FormLabel>
@@ -326,7 +344,7 @@ export function EditJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="perks"
+                name="jobDetails.perks"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Perks and Benefits</FormLabel>
@@ -343,7 +361,7 @@ export function EditJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="application"
+                name="jobDetails.application"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Application</FormLabel>
@@ -365,7 +383,7 @@ export function EditJobDialog() {
                   <FormItem>
                     <FormControl>
                       <div className="flex pb-2">
-                        <FormLabel>Attach images and videos</FormLabel>
+                        <FormLabel>Attach Relevant Images </FormLabel>
                         <Label
                           htmlFor="fileInput"
                           className="inline-block overflow-hidden cursor-pointer ml-52"
@@ -377,7 +395,7 @@ export function EditJobDialog() {
                           </div>
                         </Label>
                         <Input
-                          accept="image/*, video/*"
+                          accept="image/*"
                           type="file"
                           {...fileRef}
                           onChange={handleImageChange}
@@ -387,16 +405,13 @@ export function EditJobDialog() {
                       </div>
                     </FormControl>
                     <FormMessage />
-                    <div className="flex mt-8 flex-wrap">
+                    <div className="flex  flex-col mt-8 flex-wrap">
                       {previewImages.map((preview, index) => (
                         <div className="flex m-2 relative" key={index}>
-                          <img
-                            src={preview}
-                            alt={`Preview ${index}`}
-                            style={{ width: '150px', height: 'auto' }}
-                          />
+                          <p className="text-sm mr-1 w-full">{preview}</p>
+
                           <Button
-                            className=" absolute top-1 right-1 max-w-[0.25px] max-h-[0.25px] px-3 mx-0.5 rounded-full"
+                            className=" mt-0.5 max-w-[0.25px] max-h-[0.25px] px-2 mx-0.5 rounded-sm  text-xs  text-gray-600 border border-gray-400 bg-transparent hover:bg-gray-200"
                             onClick={() => removeImage(index)}
                           >
                             X

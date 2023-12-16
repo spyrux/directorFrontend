@@ -52,7 +52,7 @@ const formSchema = z.object({
   date: z.date(),
   role: z.string(),
   description: z.string(),
-  files: z.array(z.string()),
+  files: z.any(),
 });
 
 export function PostProjectDialog() {

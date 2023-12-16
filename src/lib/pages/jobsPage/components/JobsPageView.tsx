@@ -5,6 +5,8 @@ import rightArrow from '/Vector2.svg';
 import { CSSProperties } from 'react';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
+
+
 function JobsPageView(props: JobViewProps) {
   const isVideo = (url: string | undefined) => {
     const videoExtensions = ['mp4', 'webm', 'ogg']; // Add other video extensions if needed
