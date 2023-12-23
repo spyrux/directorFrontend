@@ -4,7 +4,7 @@ import ProfileContainer from './components/ProfileContainer';
 const Profile = () => {
   return (
     // placeholder info replace with fetched data
-    <div className="wrapper mx-auto flex justify-start w-8/12 font-nhgdp">
+    <div className="wrapper mx-auto flex justify-start w-8/12 font-nhgdp mt-4">
       <ProfileCard
         about=" Kelly Ling is a visionary director who has taken the New York City film scene by storm. Born and raised in the suburbs of Toronto, Kelly developed a deep passion for storytelling from a young age. Her unique perspective and creative flair have made her a rising star in the world of cinema."
         website="www.workbykelly.com"
@@ -18,7 +18,7 @@ const Profile = () => {
         location="New York City"
         role="Director from New York City"
       />
-      <div className="text-left h-max mt-0 align-top">
+      <div className="text-left h-max mb-64 align-top">
         <ProfileContainer />
       </div>
     </div>

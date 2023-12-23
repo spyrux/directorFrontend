@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -10,16 +11,12 @@ import {
 } from '@/components/ui/dialog';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-
+import { Label } from '@/components/ui/label';
 import { useState } from 'react';
-import { EditProjectDialog } from '../../home/components/EditProjectDialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ProjectCardProps } from './ProjectCardProps';
 
-interface ProfileProjectCardProps {
-  key: number;
-  image: string;
-}
-
-function ProfileProjectCard(props: ProfileProjectCardProps) {
+function ProjectCard(props: ProjectCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = () => {
@@ -31,19 +28,22 @@ function ProfileProjectCard(props: ProfileProjectCardProps) {
   };
 
   return (
-    <div>
+    <div className="mt-0 pt-0">
       <Dialog open={isOpen} onOpenChange={closeDialog}>
         <DialogTrigger />
 
         <img
-          className="rounded-lg overflow-hidden max-h-[200px] shadow-sm border"
+          className="rounded-lg "
           key={props.key}
           src={props.image}
           style={{
-            display: 'overflow-hidden',
+            display: 'block',
+            overflow: 'hidden',
             cursor: 'pointer',
-            width: '300px',
-            height: 'auto',
+            objectFit: 'contain', // Maintain original aspect ratio
+
+            width: '100%', // Ensure original aspect ratio
+            height: 'auto', // Ensure original aspect ratio
           }}
           onClick={openDialog}
         />
@@ -52,7 +52,24 @@ function ProfileProjectCard(props: ProfileProjectCardProps) {
 
         <DialogContent className=" max-h-[700px] overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>Show profile with icon</DialogTitle>
+            <DialogTitle>
+              <div className="flex">
+                <Avatar className="h-12 w-12 my-1">
+                  <AvatarImage src={props.image} />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <p className="my-auto flex items-baseline">
+                  {' '}
+                  <p className=" font-semibold  ml-2 mr-1 align-baseline text-base ">
+                    {' '}
+                    Jeff Bezos
+                  </p>
+                  <p className="  text-zinc-400 text-sm align-baseline font-normal">
+                    @user
+                  </p>
+                </p>
+              </div>
+            </DialogTitle>
           </DialogHeader>
 
           <DialogDescription className="flex items-center justify-center ">
@@ -61,7 +78,7 @@ function ProfileProjectCard(props: ProfileProjectCardProps) {
                 thumbWidth={100}
                 showStatus={false}
                 dynamicHeight={true}
-                width={400}
+                width={450}
               >
                 <div>
                   <img
@@ -97,16 +114,23 @@ function ProfileProjectCard(props: ProfileProjectCardProps) {
         </DialogContent>
       </Dialog>
       {/* replace p with clickable link to profile */}
-      <div className="">
-        <div className="flex justify-between items-baseline">
-          <p className="  align-baseline text-s"> Title</p>
-          <div className="justify-end align-baseline">
-            <EditProjectDialog />
-          </div>
+      <div className="flex pt-2.5">
+        <Avatar className="h-10 w-10">
+          <AvatarImage src={props.image}></AvatarImage>
+          <AvatarFallback>A</AvatarFallback>
+        </Avatar>
+        <div className="flex items-baseline">
+          <p className=" font-semibold mt-2.5 ml-2 mr-1 align-baseline text-sm ">
+            {' '}
+            Jeff Bezos
+          </p>
+          <p className="mt-2.5 ml-2 text-zinc-400 text-xs align-baseline">
+            @user
+          </p>
         </div>
       </div>
     </div>
   );
 }
 
-export default ProfileProjectCard;
+export default ProjectCard;

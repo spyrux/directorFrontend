@@ -2,7 +2,7 @@ import { useState, ReactElement } from 'react';
 import ProfileProjectComponent from './ProfileProjectComponent';
 import ProfileJobComponent from './ProfileJobComponent';
 import { Button } from '@/components/ui/button';
-import { PostProjectDialog } from '../../posts/components/PostProjectDialog';
+import { PostProjectDialog } from '../../home/components/PostProjectDialog';
 import { PostJobDialog } from '../../jobBoard/components/PostJobDialog';
 type ComponentType = 'ProfileProjectComponent' | 'ProfileJobComponent';
 

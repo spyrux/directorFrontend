@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -11,16 +10,13 @@ import {
 } from '@/components/ui/dialog';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Label } from '@/components/ui/label';
+
 import { useState } from 'react';
+import { EditProjectDialog } from '../../posts/components/EditProjectDialog';
+import { ProjectCardProps } from '@/lib/types/ProjectCardProps';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
-interface ProjectCardProps {
-  key: number;
-  image: string;
-}
-
-function ProjectCard(props: ProjectCardProps) {
+function BookmarksProjectCard(props: ProjectCardProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openDialog = () => {
@@ -32,22 +28,19 @@ function ProjectCard(props: ProjectCardProps) {
   };
 
   return (
-    <div className="mt-0 pt-0">
+    <div>
       <Dialog open={isOpen} onOpenChange={closeDialog}>
         <DialogTrigger />
 
         <img
-          className="rounded-lg "
+          className="rounded-lg overflow-hidden shadow-sm border"
           key={props.key}
           src={props.image}
           style={{
-            display: 'block',
-            overflow: 'hidden',
+            display: 'overflow-hidden',
             cursor: 'pointer',
-            objectFit: 'contain', // Maintain original aspect ratio
-
-            width: '100%', // Ensure original aspect ratio
-            height: 'auto', // Ensure original aspect ratio
+            width: '300px',
+            height: '200px',
           }}
           onClick={openDialog}
         />
@@ -56,24 +49,7 @@ function ProjectCard(props: ProjectCardProps) {
 
         <DialogContent className=" max-h-[700px] overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>
-              <div className="flex">
-                <Avatar className="h-12 w-12 my-1">
-                  <AvatarImage src={props.image} />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <p className="my-auto flex items-baseline">
-                  {' '}
-                  <p className=" font-semibold  ml-2 mr-1 align-baseline text-base ">
-                    {' '}
-                    Jeff Bezos
-                  </p>
-                  <p className="  text-zinc-400 text-sm align-baseline font-normal">
-                    @user
-                  </p>
-                </p>
-              </div>
-            </DialogTitle>
+            <DialogTitle>Show profile with icon</DialogTitle>
           </DialogHeader>
 
           <DialogDescription className="flex items-center justify-center ">
@@ -82,7 +58,7 @@ function ProjectCard(props: ProjectCardProps) {
                 thumbWidth={100}
                 showStatus={false}
                 dynamicHeight={true}
-                width={450}
+                width={400}
               >
                 <div>
                   <img
@@ -137,4 +113,4 @@ function ProjectCard(props: ProjectCardProps) {
   );
 }
 
-export default ProjectCard;
+export default BookmarksProjectCard;

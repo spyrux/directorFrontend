@@ -45,7 +45,7 @@ function JobCard(props: JobViewProps) {
             {/* Render your placeholder image */}
             <img
               src={placeholder} // Replace with your placeholder image URL
-              className="overflow-hidden object-scale-down bg-white border "
+              className="overflow-hidden object-cover h-full w-full bg-white border "
               alt="Placeholder"
             />
           </div>

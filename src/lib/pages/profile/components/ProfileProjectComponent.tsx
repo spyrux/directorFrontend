@@ -14,7 +14,7 @@ const images = [
 //fetch profile propject data then render a grid with projects
 function ProfileProjectComponent() {
   return (
-    <div className=" grid grid-cols-3 gap-6 w-[920px] overflow-scroll h-[520px] pr-5 gap-y-0">
+    <div className=" grid grid-cols-3 gap-6 w-[920px] overflow-scroll h-[520px] pr-5 gap-y-0 mt-2">
       {images.map((image, i) => (
         <ProfileProjectCard key={i} image={image} />
       ))}

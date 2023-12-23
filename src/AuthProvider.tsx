@@ -5,30 +5,26 @@ import {
   ReactNode,
   useContext,
 } from 'react';
-import { jwtDecode } from 'jwt-decode';
 
-interface GoogleUserInfo {
-  iss: string;
-  azp: string;
-  aud: string;
-  sub: string;
-  email: string;
-
-  nbf: number;
-  name: string;
-  picture: string;
-  given_name: string;
-  family_name: string;
-  locale: string;
-  iat: number;
-  exp: number;
-  jti: string;
+interface UserDetails {
+  Id: number;
+  Name: string;
+  IconUrl: string;
+  Handle: string;
+  RoleIds: number[];
+  Contact: Record<string, any>;
+  Version: number;
 }
 
 interface AuthContextType {
-  user: GoogleUserInfo | null;
-  setUser: (user: GoogleUserInfo) => void;
-
+  user: UserDetails | null;
+  refreshToken: string | null;
+  authed: boolean;
+  googleJWT: string | null;
+  setUser: (user: UserDetails) => void;
+  setGoogleJWT: (jwt: string) => void;
+  setAuthed: (bool: boolean) => void;
+  setRefreshToken: (token: string) => void;
   removeUser: () => void;
 }
 
@@ -39,17 +35,32 @@ interface AuthProviderProps {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<GoogleUserInfo | null>(null);
+  const [authed, setAuthed] = useState(false);
+  const [user, setUser] = useState<UserDetails | null>(null);
+  const [googleJWT, setGoogleJWT] = useState<string | null>(null);
+  const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
   function handleCredentialResponse(
     data: google.accounts.id.CredentialResponse
   ): void {
-    setUser(jwtDecode(data.credential));
+    setGoogleJWT(data.credential);
   }
 
   useEffect(() => {
-    console.log(user);
-  }, [user]);
+    const storedUser = localStorage.getItem('user');
+    console.log(storedUser);
+    const storedRefreshToken = localStorage.getItem('refreshToken');
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setAuthed(true);
+    }
+
+    if (storedRefreshToken) {
+      setRefreshToken(storedRefreshToken);
+    }
+  }, []);
+
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
@@ -59,26 +70,48 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     });
   }, []);
 
-  const storeUser = (newUser: GoogleUserInfo) => {
+  const handleSetGoogleJWT = (jwt: string) => {
+    setGoogleJWT(jwt);
+  };
+
+  const handleSetAuthed = (bool: boolean) => {
+    setAuthed(bool);
+  };
+
+  const handleSetRefreshToken = (token: string) => {
+    setRefreshToken(token);
+    localStorage.setItem('refreshToken', token);
+  };
+
+  const storeUser = (newUser: UserDetails) => {
     setUser(newUser);
-    // Store the token (e.g., in local storage)
+    localStorage.setItem('user', JSON.stringify(newUser));
   };
 
   const removeUser = () => {
     setUser(null);
-    // Clear the token from storage
+    setRefreshToken(null);
+    localStorage.removeItem('user');
+    localStorage.removeItem('refreshToken');
   };
 
   const contextValue: AuthContextType = {
     user,
+    authed,
     setUser: storeUser,
     removeUser,
+    refreshToken,
+    googleJWT,
+    setAuthed: handleSetAuthed,
+    setRefreshToken: handleSetRefreshToken,
+    setGoogleJWT: handleSetGoogleJWT,
   };
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };
+
 function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {

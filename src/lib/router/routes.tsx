@@ -1,19 +1,23 @@
 import React from 'react';
 import type { PathRouteProps } from 'react-router-dom';
 
+const Root = React.lazy(() => import('@/lib/pages/root'));
 const Home = React.lazy(() => import('@/lib/pages/home'));
-const Posts = React.lazy(() => import('@/lib/pages/posts'));
 const Profile = React.lazy(() => import('@/lib/pages/profile'));
 const JobBoard = React.lazy(() => import('@/lib/pages/jobBoard'));
 const JobsPage = React.lazy(() => import('@/lib/pages/jobsPage'));
+const Bookmarks = React.lazy(() => import('@/lib/pages/bookmarks'));
 export const routes: Array<PathRouteProps> = [
   {
     path: '/',
-    element: <Home />,
+    element: <Root />,
   },
+];
+
+export const privateRoutes: Array<PathRouteProps> = [
   {
-    path: '/posts',
-    element: <Posts />,
+    path: '/home',
+    element: <Home />,
   },
   {
     path: '/profile',
@@ -27,6 +31,8 @@ export const routes: Array<PathRouteProps> = [
     path: '/jobsPage',
     element: <JobsPage />,
   },
+  {
+    path: '/bookmarks',
+    element: <Bookmarks />,
+  },
 ];
-
-export const privateRoutes: Array<PathRouteProps> = [];

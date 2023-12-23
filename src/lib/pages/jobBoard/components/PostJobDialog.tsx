@@ -43,21 +43,21 @@ import {
 // }
 
 const formSchema = z.object({
-  title: z.string().min(2).max(50),
+  Title: z.string().min(2).max(50),
 
-  summary: z.string(),
-  contact: z.string(),
-  project: z.string(),
-  country: z.string(),
-  region: z.string(),
+  Summary: z.string(),
+  Contact: z.string(),
+  Project: z.string(),
+  CountryCode: z.string(),
+  CountryRegion: z.string(),
 
-  jobDetails: z.object({
-    description: z.string(),
-    perks: z.string(),
-    type: z.string(),
-    qualifications: z.string(),
-    application: z.string(),
-    responsibilities: z.string(),
+  JobDetails: z.object({
+    Description: z.string(),
+    Perks: z.string(),
+    Type: z.string(),
+    Qualifications: z.string(),
+    Application: z.string(),
+    Responsibilities: z.string(),
   }),
 
   files: z.any(),
@@ -72,21 +72,21 @@ export function PostJobDialog() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
+      Title: '',
 
-      summary: '',
-      contact: '',
-      project: '',
-      country: '',
-      region: '',
+      Summary: '',
+      Contact: '',
+      Project: '',
+      CountryCode: '',
+      CountryRegion: '',
 
-      jobDetails: {
-        description: '',
-        perks: '',
-        type: '',
-        qualifications: '',
-        application: '',
-        responsibilities: '',
+      JobDetails: {
+        Description: '',
+        Perks: '',
+        Type: '',
+        Qualifications: '',
+        Application: '',
+        Responsibilities: '',
       },
       files: [],
     },
@@ -99,12 +99,12 @@ export function PostJobDialog() {
   const handleCountryChange = (e: string) => {
     const country = e;
     setCountry(country);
-    form.setValue('country', country);
+    form.setValue('CountryCode', country);
   };
   const handleRegionChange = (e: string) => {
     const region = e;
     setRegion(region);
-    form.setValue('region', region);
+    form.setValue('CountryRegion', region);
   };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
@@ -164,7 +164,7 @@ export function PostJobDialog() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
-                name="title"
+                name="Title"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Job Title</FormLabel>
@@ -182,7 +182,7 @@ export function PostJobDialog() {
               />{' '}
               <FormField
                 control={form.control}
-                name="project"
+                name="Project"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Project Name</FormLabel>
@@ -200,7 +200,7 @@ export function PostJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="contact"
+                name="Contact"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Contact Information</FormLabel>
@@ -218,7 +218,7 @@ export function PostJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="jobDetails.type"
+                name="JobDetails.Type"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Type of Work</FormLabel>
@@ -237,7 +237,7 @@ export function PostJobDialog() {
               <div className="flex min-w-full">
                 <FormField
                   control={form.control}
-                  name="country"
+                  name="CountryCode"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Country</FormLabel>
@@ -254,7 +254,7 @@ export function PostJobDialog() {
                 />
                 <FormField
                   control={form.control}
-                  name="region"
+                  name="CountryRegion"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>City</FormLabel>
@@ -273,7 +273,7 @@ export function PostJobDialog() {
               </div>
               <FormField
                 control={form.control}
-                name="summary"
+                name="Summary"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>About</FormLabel>
@@ -290,7 +290,7 @@ export function PostJobDialog() {
               />{' '}
               <FormField
                 control={form.control}
-                name="jobDetails.description"
+                name="JobDetails.Description"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Description</FormLabel>
@@ -307,7 +307,7 @@ export function PostJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="jobDetails.responsibilities"
+                name="JobDetails.Responsibilities"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Responsibilities</FormLabel>
@@ -324,7 +324,7 @@ export function PostJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="jobDetails.qualifications"
+                name="JobDetails.Qualifications"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Qualifications</FormLabel>
@@ -341,7 +341,7 @@ export function PostJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="jobDetails.perks"
+                name="JobDetails.Perks"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Perks and Benefits</FormLabel>
@@ -358,7 +358,7 @@ export function PostJobDialog() {
               />
               <FormField
                 control={form.control}
-                name="jobDetails.application"
+                name="JobDetails.Application"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Application</FormLabel>

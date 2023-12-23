@@ -37,11 +37,17 @@ import { useAuth } from '@/AuthProvider';
 import axios from 'axios';
 
 const formSchema = z.object({
-  Handle: z.string().min(2).max(50),
-  Role: z.string().min(1),
-  Country: z.string(),
-  Region: z.string(),
-  IdToken: z.string(),
+  GoogleRegister: z.object({
+    Handle: z.string().min(2).max(50),
+    IdToken: z.string(),
+  }),
+
+  Roles: z.string(),
+  UserDetails: z.object({
+    RoleIds: z.array(z.number()),
+    CountryCode: z.string(),
+    CountryRegion: z.string(),
+  }),
 });
 
 export function Signup() {
@@ -66,45 +72,91 @@ export function Signup() {
   const handleCountryChange = (e: string) => {
     const country = e;
     setCountry(country);
-    form.setValue('Country', country);
+    form.setValue('UserDetails.CountryCode', country);
   };
   const handleRegionChange = (e: string) => {
     const region = e;
     setRegion(region);
-    form.setValue('Region', region);
+    form.setValue('UserDetails.CountryRegion', region);
   };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      Handle: '',
-
-      Role: '',
-      IdToken: '',
-      Country: '',
-      Region: '',
+      GoogleRegister: {
+        Handle: '',
+        IdToken: '',
+      },
+      Roles: '',
+      UserDetails: {
+        RoleIds: [0],
+        CountryCode: '',
+        CountryRegion: '',
+      },
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log();
+    console.log('Form values:', values);
     values = {
       ...values,
-      IdToken: user?.sub || '',
+      GoogleRegister: {
+        ...values.GoogleRegister,
+        IdToken: user ? user.toString() : '',
+      },
     };
 
     console.log(JSON.stringify(values, null, 2));
-    postUserDataGoogleSignon(JSON.stringify(values, null, 2));
+    postUserDataGoogleSignon(values);
   }
 
-  function postUserDataGoogleSignon(userData: string) {
-    axios({
+  function postUserDataGoogleSignon(values: z.infer<typeof formSchema>) {
+    const registerRequest = axios({
       method: 'post',
       url: 'https://api.direct-r.com/api/identity/register/google',
-      data: userData,
-    }).then((response: any) => console.log(response));
-  }
+      data: values.GoogleRegister,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
+    const loginRequest = registerRequest.then(() => {
+      return axios({
+        method: 'post',
+        url: 'https://api.direct-r.com/api/identity/login/google',
+        data: values.GoogleRegister,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    });
+
+    const detailsRequest = loginRequest.then((loginResponse) => {
+      const { AccessToken } = loginResponse.data;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${AccessToken}`;
+      return axios({
+        method: 'put',
+        url: 'https://api.direct-r.com/api/account/details',
+        data: values.UserDetails,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    });
+
+    axios
+      .all([registerRequest, loginRequest, detailsRequest])
+      .then(
+        axios.spread((registerResponse, loginResponse, detailsResponse) => {
+          console.log('Register Response:', registerResponse);
+          console.log('Login Response:', loginResponse);
+          console.log('Details Response:', detailsResponse);
+        })
+      )
+      .catch((error) => {
+        console.error('API Error:', error);
+      });
+  }
   return (
     <Dialog onOpenChange={handleResetDialog}>
       <DialogTrigger asChild>
@@ -141,7 +193,7 @@ export function Signup() {
 
               <FormField
                 control={form.control}
-                name="Handle"
+                name="GoogleRegister.Handle"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Display Name</FormLabel>
@@ -158,7 +210,7 @@ export function Signup() {
               />
               <FormField
                 control={form.control}
-                name="Role"
+                name="Roles"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Occupation</FormLabel>
@@ -176,7 +228,7 @@ export function Signup() {
               <div className="flex min-w-full">
                 <FormField
                   control={form.control}
-                  name="Country"
+                  name="UserDetails.CountryCode"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Country</FormLabel>
@@ -193,7 +245,7 @@ export function Signup() {
                 />
                 <FormField
                   control={form.control}
-                  name="Region"
+                  name="UserDetails.CountryRegion"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>City</FormLabel>

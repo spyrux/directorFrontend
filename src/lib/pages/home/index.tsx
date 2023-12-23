@@ -1,19 +1,30 @@
-import About from './components/About';
-import Features from './components/Features';
-import Introduction from './components/Introduction';
-import Roadmap from './components/Roadmap';
-import Team from './components/Team';
+import Gallery from './components/Gallery';
+import { PostProjectDialog } from './components/PostProjectDialog';
 
-const Home = () => {
+function Posts() {
   return (
-    <div className="flex min-h-[60vh]  flex-col  justify-center gap-8 text-center  font-nhgdp">
-      <Introduction />
+    <div className="font-nhgdp">
+      <div className="flex ml-[17.5%] flex-col text-left">
+        <h1 className=" text-lg ">Showcase</h1>
+        <div className="flex">
+          <p className=" text-sm mt-2">
+            <strong>Show us who you are.</strong> This is Direct’r home page
+            where you can showcase your work and express who you are while being
+            able to explore the creativity and work of others.
+          </p>
 
-      <Features />
-      <About />
-      <Roadmap />
+          <div className="ml-[12%]">
+            <PostProjectDialog />
+          </div>
+        </div>
+      </div>
+
+      <hr className="w-[66%]  my-4 md:my-8 border-gray-200 sm:mx-auto dark:border-gray-700 " />
+      <div className="">
+        <Gallery />
+      </div>
     </div>
   );
-};
+}
 
-export default Home;
+export default Posts;

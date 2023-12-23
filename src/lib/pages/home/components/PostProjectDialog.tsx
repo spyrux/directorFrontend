@@ -48,50 +48,70 @@ const ACCEPTED_IMAGE_TYPES = [
 ];
 
 const formSchema = z.object({
-  name: z.string().min(2).max(50),
-  date: z.date(),
-  role: z.string(),
-  description: z.string(),
-  files: z.any(),
+  Title: z.string().min(2).max(50),
+  Date: z.date(),
+  RoleIds: z.array(z.number()),
+  Description: z.string(),
 });
 
 export function PostProjectDialog() {
-  const [media, setMedia] = useState<File[]>([]);
-  const [previewFiles, setPreviewFiles] = useState<string[]>([]);
+  const [images, setImages] = useState<File[]>([]);
+  const [videos, setVideos] = useState<File[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      date: new Date(),
-      role: '',
-      description: '',
-      files: [],
+      Title: '',
+      Date: new Date(),
+      RoleIds: [],
+      Description: '',
     },
   });
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = e.target.files;
     if (selectedFiles) {
       const fileArray = Array.from(selectedFiles);
-      const nameArray = fileArray.map((file) => file.name);
-      setMedia([...media, ...fileArray]);
-      setPreviewFiles([...previewFiles, ...nameArray]);
+      const supportedImageTypes = ['image/jpeg', 'image/png'];
+
+      const imageFiles = fileArray.filter((file) =>
+        supportedImageTypes.includes(file.type)
+      );
+
+      const imageNames = imageFiles.map((file) => file.name);
+      setImages([...images, ...imageFiles]);
     }
   };
-  const removeFile = (index: number) => {
-    const updatedImages = [...media];
-    const updatedPreviews = [...previewFiles];
-    updatedImages.splice(index, 1);
-    updatedPreviews.splice(index, 1);
-    setMedia(updatedImages);
-    setPreviewFiles(updatedPreviews);
+
+  const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = e.target.files;
+    if (selectedFiles) {
+      const fileArray = Array.from(selectedFiles);
+      const supportedVideoTypes = ['video/mp4', 'video/quicktime'];
+
+      const videoFiles = fileArray.filter((file) =>
+        supportedVideoTypes.includes(file.type)
+      );
+
+      const videoNames = videoFiles.map((file) => file.name);
+      setVideos([...videos, ...videoFiles]);
+    }
   };
 
-  const fileRef = form.register('files', { required: true });
+  const removeImage = (index: number) => {
+    const updatedImages = [...images];
+    updatedImages.splice(index, 1);
+    setImages(updatedImages);
+  };
+
+  const removeVideo = (index: number) => {
+    const updatedVideos = [...videos];
+    updatedVideos.splice(index, 1);
+    setVideos(updatedVideos);
+  };
+
   // 2. Define a submit handler.
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    values.files = previewFiles;
     console.log(JSON.stringify(values, null, 2));
   }
 
@@ -132,7 +152,7 @@ export function PostProjectDialog() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
-                name="name"
+                name="Title"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Project name*</FormLabel>
@@ -149,7 +169,7 @@ export function PostProjectDialog() {
               />
               <FormField
                 control={form.control}
-                name="date"
+                name="Date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Date*</FormLabel>
@@ -190,7 +210,7 @@ export function PostProjectDialog() {
               />
               <FormField
                 control={form.control}
-                name="role"
+                name="RoleIds"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Role*</FormLabel>
@@ -207,7 +227,7 @@ export function PostProjectDialog() {
               />
               <FormField
                 control={form.control}
-                name="description"
+                name="Description"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Description</FormLabel>
@@ -222,31 +242,31 @@ export function PostProjectDialog() {
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
-                name="files"
+                name="images"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <div className="flex pb-2">
-                        <FormLabel>Attach images and videos</FormLabel>
+                        <FormLabel>Attach images to the project</FormLabel>
                         <Label
-                          htmlFor="fileInput"
+                          htmlFor="imageInput"
                           className="inline-block overflow-hidden cursor-pointer ml-52"
                         >
                           <div>
                             <p className=" underline text-gray-400">
-                              Upload Attachment
+                              Upload Images
                             </p>
                           </div>
                         </Label>
                         <Input
-                          accept="image/*, video/*"
+                          accept="image/jpeg, image/png"
                           type="file"
                           {...fileRef}
                           onChange={handleImageChange}
                           className=" sr-only"
-                          id="fileInput"
+                          id="imageInput"
                         />
                       </div>
                     </FormControl>
@@ -267,7 +287,83 @@ export function PostProjectDialog() {
                     </div>
                   </FormItem>
                 )}
-              />
+              /> */}
+              <div>
+                <label htmlFor="imageInput" className="text-sm">
+                  Attach images to the project
+                </label>
+                <Label
+                  htmlFor="imageInput"
+                  className="inline-block overflow-hidden cursor-pointer ml-60"
+                >
+                  <div>
+                    <p className=" underline text-gray-400">
+                      Upload Attachment
+                    </p>
+                  </div>
+                </Label>
+                <Input
+                  accept=" .jpeg, .png"
+                  type="file"
+                  onChange={handleImageChange}
+                  className=" sr-only"
+                  id="imageInput"
+                />
+              </div>
+              <div className="flex  flex-col mt-2 flex-wrap">
+                {images.map((preview, index) => (
+                  <div className="flex m-1 relative" key={index}>
+                    <p className="text-sm mr-1 w-full underline">
+                      {preview.name}
+                    </p>
+
+                    <Button
+                      className=" mt-0.5 max-w-[0.25px] max-h-[0.25px] px-2 mx-0.5 rounded-sm  text-xs  text-gray-600 border border-gray-400 bg-transparent hover:bg-gray-200"
+                      onClick={() => removeImage(index)}
+                    >
+                      X
+                    </Button>
+                  </div>
+                ))}
+              </div>
+
+              <div>
+                <label htmlFor="videoInput" className="text-sm mr-1">
+                  Attach videos to the project
+                </label>
+                <Label
+                  htmlFor="videoInput"
+                  className="inline-block overflow-hidden cursor-pointer ml-60"
+                >
+                  <div>
+                    <p className=" underline text-gray-400">
+                      Upload Attachment
+                    </p>
+                  </div>
+                </Label>
+                <Input
+                  accept=" .mp4, .png"
+                  type="file"
+                  onChange={handleVideoChange}
+                  className=" sr-only"
+                  id="videoInput"
+                />
+              </div>
+              <div className="flex  flex-col mt-2 flex-wrap">
+                {videos.map((file, index) => (
+                  <div className="flex m-1 relative" key={index}>
+                    <p className="text-sm mr-1 w-full underline">{file.name}</p>
+
+                    <Button
+                      className=" mt-0.5 max-w-[0.25px] max-h-[0.25px] px-2 mx-0.5 rounded-sm  text-xs  text-gray-600 border border-gray-400 bg-transparent hover:bg-gray-200"
+                      onClick={() => removeVideo(index)}
+                    >
+                      X
+                    </Button>
+                  </div>
+                ))}
+              </div>
+
               <Button
                 className="font-normal flex bg-blue-800 rounded-full px-5  ml-auto"
                 type="submit"

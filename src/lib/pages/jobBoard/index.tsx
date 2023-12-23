@@ -19,7 +19,7 @@ function Jobs() {
           </div>
         </div>
         <br></br>
-        <div className="mb-6">
+        <div className="mt-10 mb-6">
           <h1 className=" text-md mb-4">Featured Role</h1>
           {/* fetch featured job and load info */}
           <FeaturedJobsCard
@@ -35,7 +35,7 @@ function Jobs() {
 
         <div className="flex items-baseline w-[78%]">
           <h1 className=" text-md my-6 align-baseline">Open Roles</h1>
-          <a className=" text-md my-4 ml-auto text-gray-400 hover:underline hover:cursor-pointer text-sm align-baseline">
+          <a className=" text-md my-4 ml-auto text-gray-400 underline hover:cursor-pointer text-sm align-baseline">
             View All
           </a>
         </div>

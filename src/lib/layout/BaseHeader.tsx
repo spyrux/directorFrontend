@@ -12,8 +12,8 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { Link } from 'react-router-dom';
-import { Login } from '../pages/home/components/Login';
-import { Signup } from '../pages/home/components/Signup';
+import { Login } from '../pages/root/components/Login';
+import { Signup } from '../pages/root/components/Signup';
 
 const Header = () => {
   return (
